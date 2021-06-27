@@ -11,4 +11,7 @@ target 'Bridal' do
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
 
+    pod 'FacebookCore'
+    pod 'FacebookLogin'
+
 end
