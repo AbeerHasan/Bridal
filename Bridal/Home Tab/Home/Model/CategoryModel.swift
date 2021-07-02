@@ -11,4 +11,5 @@ struct Category {
     let title: String
     let supTitle: String
     let image: UIImage
+    var products: [Product]?
 }

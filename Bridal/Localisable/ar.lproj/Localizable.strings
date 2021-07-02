@@ -1,0 +1,24 @@
+/* 
+  LocalisationArabic.strings
+  Bridal
+
+  Created by Abeer Hasan on 01/07/2021.
+  
+*/
+"logInTitle" = "سجل الدخول من هنا" ;
+"email" = "البريد الإلكتروني";
+"password" = "كلمة المرور";
+"login" = "تسجيل الدخول";
+"forgetPassword" = "هل نسيت كلمة المرور؟";
+"noAccount" = "ليس لديك حساب؟";
+"register" = "أنشئ حساب";
+"or" = "أو";
+"signinFB" = "سجل الدخول عبر فيس بوك";
+"siginGoogle" = "سجل الدخول عبر جوجل";
+
+"firstName" = "الإسم الآول";
+"lastName" = "الإسم الآخير";
+"confirm" = "أعد كلمة المرور";
+"registerButton" = "أنشئ حساب";
+"haveAccount" = "هل تمتلك حسابا؟"
+"loginLabel" = "تسجيل الدخول"

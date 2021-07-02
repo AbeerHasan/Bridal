@@ -1,0 +1,31 @@
+/* 
+  Localisation.strings
+  Bridal
+
+  Created by Abeer Hasan on 01/07/2021.
+  
+*/
+
+
+"logInTitle" = "Sign In Here" ;
+"email" = " Email";
+"password" = " Password";
+"login" = "LOGIN";
+"forgetPassword" = "Forget Password?";
+"noAccount" = "Don't have account?";
+"register" = "Register";
+"or" = "OR";
+"signinFB" = "SIGN IN WITH FACEBOOK";
+"siginGoogle" = "SIGN IN WITH GOOGLE";
+
+"firstName" = " First Name";
+"lastName" = " Last Name";
+"confirm" = " Confirm Password";
+"haveAccount" = "Already have account?"
+"loginLabel" = "Login"
+"registerButton" = "REGISTER";
+
+"" = "";
+"" = "";
+"" = "";
+

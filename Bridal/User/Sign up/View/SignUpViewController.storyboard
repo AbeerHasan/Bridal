@@ -53,6 +53,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="firstName"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3JK-dP-vRH" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
@@ -80,6 +81,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="lastName"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0f-ty-vP7" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
@@ -107,6 +109,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="email"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I5D-AJ-Q6p" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
@@ -134,6 +137,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="password"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z7t-if-Ca8" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
@@ -161,6 +165,7 @@
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="confirm"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="GfP-aT-6B3">
@@ -179,6 +184,7 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="2"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="registerButton"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="registerButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="KIt-ux-nev"/>
@@ -192,12 +198,18 @@
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                 <color key="textColor" red="0.7386274934" green="0.63966721299999996" blue="0.16907688979999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="haveAcount"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFk-xy-cic">
                                                                 <rect key="frame" x="162" y="0.0" width="38" height="30"/>
                                                                 <state key="normal" title="Login">
                                                                     <color key="titleColor" red="0.0" green="0.45882352939999999" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="localizationKey" value="loginLabel"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="loginButtonClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Cr1-yE-85c"/>
                                                                 </connections>
@@ -240,6 +252,12 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="K2N-5f-nhS">
+                                <rect key="frame" x="-7" y="46" width="428" height="804"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -261,6 +279,7 @@
                         <outlet property="emailTextField" destination="i0f-ty-vP7" id="yTF-Va-diZ"/>
                         <outlet property="firstNameTextField" destination="i93-bJ-4KS" id="apN-hV-Cic"/>
                         <outlet property="lastNameTextField" destination="3JK-dP-vRH" id="4hP-lL-TZh"/>
+                        <outlet property="loadingIndicator" destination="K2N-5f-nhS" id="yh0-kL-5gq"/>
                         <outlet property="passwordTextField" destination="I5D-AJ-Q6p" id="gV5-0v-h3n"/>
                     </connections>
                 </viewController>
@@ -271,25 +290,28 @@
     </scenes>
     <designables>
         <designable name="3JK-dP-vRH">
-            <size key="intrinsicContentSize" width="127" height="34"/>
+            <size key="intrinsicContentSize" width="331" height="46.380859375"/>
         </designable>
         <designable name="I5D-AJ-Q6p">
-            <size key="intrinsicContentSize" width="117.5" height="34"/>
+            <size key="intrinsicContentSize" width="331" height="46.380859375"/>
         </designable>
         <designable name="Z7t-if-Ca8">
-            <size key="intrinsicContentSize" width="192.5" height="34"/>
+            <size key="intrinsicContentSize" width="331" height="46.380859375"/>
         </designable>
         <designable name="i0f-ty-vP7">
-            <size key="intrinsicContentSize" width="80" height="34"/>
+            <size key="intrinsicContentSize" width="331" height="46.380859375"/>
         </designable>
         <designable name="i93-bJ-4KS">
-            <size key="intrinsicContentSize" width="127.5" height="34"/>
+            <size key="intrinsicContentSize" width="331" height="46.380859375"/>
         </designable>
     </designables>
     <resources>
         <image name="Background" width="640" height="1136"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

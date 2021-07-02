@@ -9,9 +9,15 @@ target 'Bridal' do
     pod 'SkyFloatingLabelTextField'
     pod 'Firebase/Analytics'
     pod 'Firebase/Database'
+    pod 'Firebase/Storage'
+
     pod 'Firebase/Auth'
 
     pod 'FacebookCore'
     pod 'FacebookLogin'
+    pod 'FacebookShare'
 
+    pod 'iOSDropDown'
+  
+    pod 'MOLH'
 end

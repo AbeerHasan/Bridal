@@ -5,18 +5,24 @@
 //  Created by Abeer Hasan on 26/06/2021.
 //
 
-import Foundation
+import UIKit
 
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
+
 
 class DataServices {
     static let instance = DataServices()
-    
+   
+    static var CurrentUserData = User(firstName: " ", lastName: " ", uId: " ", email: " ", imageStringURL: "", phone: "")
+    static var selectedCategory : Category?
+    static var selectedProduct : Product?
+
     private var _REF_BASE = FIREBASE_BASE_URL
     private var _REF_USERS = FIREBASE_BASE_URL.child("users")
-    //private var _REF_GROUPS = FIREBASE_BASE_URL.child("communities")
-    //private var _REF_FEED = FIREBASE_BASE_URL.child("feed")
+    private var _REF_CATEGORY = FIREBASE_BASE_URL.child("Category")
+     var _REF_PRODUCT = FIREBASE_BASE_URL.child("product")
    
     var REF_BASE :DatabaseReference {
         return _REF_BASE
@@ -24,159 +30,134 @@ class DataServices {
     var REF_USERS :DatabaseReference {
         return _REF_USERS
     }
-    /*var REF_GROUPS :DatabaseReference {
-        return _REF_GROUPS
-    }
-    var REF_FEED :DatabaseReference {
-        return _REF_FEED
-    }
-    
-    private var selectedCommunity : Community?
-    func setSelectedCommunity(community: Community){
-        self.selectedCommunity = community
-    }
-    var SELECTED_COMMUNITY : Community? {
-        if selectedCommunity != nil {
-            return selectedCommunity!
-        }
-        return nil
-    }*/
+   
     //---------------------------------------------------------
     func createDBUser(uid: String , userData: Dictionary<String , Any>){
         REF_USERS.child(uid).updateChildValues(userData)
+        
     }
     
-    func getUserData(uId: String , handler: @escaping (_ userName: String , _ userEmail: String) -> ()){
+    func getUserData(uId: String , handler: @escaping (_ success: Bool) -> ()){
         REF_USERS.observeSingleEvent(of: .value) { (usersSnapShot) in
             guard let usersSnapShot = usersSnapShot.children.allObjects as? [DataSnapshot] else {return}
             for user in usersSnapShot {
                 if user.key == uId {
                     let firstName = user.childSnapshot(forPath: "firstName").value as! String
                     let lastName = user.childSnapshot(forPath: "lastName").value as! String
-                    handler("\(firstName) \(lastName)", user.childSnapshot(forPath: "email").value as! String)
-                }
-            }
-        }
-    }
-    /*
-    func uploadPost(message: String, uid: String, groupKey: String?, sendComplete: @escaping (_ status: Bool) -> ()) {
-        if groupKey != nil {
-           REF_GROUPS.child(groupKey!).child("messages").childByAutoId().updateChildValues(["content": message, "senderID": uid ])
-             sendComplete(true)
-        }else {
-            REF_FEED.childByAutoId().updateChildValues(["content": message, "senderID": uid ])
-            sendComplete(true)
-        }
-    }
-    
-    func getAllFeedMessages(handler: @escaping (_ messages : [Message]) -> ())  {
-        REF_FEED.observeSingleEvent(of: .value, with: { (feedMessageSnapShot) in
-            var messages = [Message]()
-            
-            guard let feedMessageSnapShot = feedMessageSnapShot.children.allObjects as? [DataSnapshot] else {return }
-            
-            for message in feedMessageSnapShot {
-                let content = message.childSnapshot(forPath: "content").value as! String
-                let writerId = message.childSnapshot(forPath: "senderID").value as! String
-                let msg = Message(id: message.key, content: content, uId: writerId, key: "")
-                messages.append(msg)
-            }
-            handler(messages)
-            
-        }) { (Error) in
-            print(String(Error.localizedDescription))
-        }
-    }
-    
-    func getAllGroupMessages(groupKey: String, handler: @escaping (_ messages : [Message]) -> ())  {
-        REF_GROUPS.child(groupKey).child("messages").observeSingleEvent(of: .value, with: { (groupMessageSnapShot) in
-            var messages = [Message]()
-            
-            guard let groupMessageSnapShot = groupMessageSnapShot.children.allObjects as? [DataSnapshot] else {return }
-            
-            for message in groupMessageSnapShot {
-                let content = message.childSnapshot(forPath: "content").value as! String
-                let writerId = message.childSnapshot(forPath: "senderID").value as! String
-                let msg = Message(id: message.key, content: content, uId: writerId, key: groupKey)
-                messages.append(msg)
-            }
-            handler(messages)
-            
-        }) { (Error) in
-            print(String(Error.localizedDescription))
-        }
-    }
-    
-    func getUsersWithName(searchQuery query: String, handler : @escaping (_ users: [User]) -> ()){
-        REF_USERS.observeSingleEvent(of: .value, with: { (usersSnapShot) in
-            var users = [User]()
-            guard let _usersSnapShot = usersSnapShot.children.allObjects as? [DataSnapshot] else {return }
-            
-            for user in _usersSnapShot{
-                let id = user.key
-                let name = user.childSnapshot(forPath: "name").value as! String
-                let email = user.childSnapshot(forPath: "email").value as! String
-                
-                if name.lowercased().contains(query.lowercased()) && id != Auth.auth().currentUser?.uid && !DataServices.instance.SELECTED_COMMUNITY!.participants.contains(id){
-                    let profilePic = #imageLiteral(resourceName: "defaultProfileImage")
-                    let usr = User(name: name, uId: id, email: email, image: profilePic)
-                    users.append(usr)
-                }
-            }
-            handler(users)
-            
-        }) { (Error) in
-            print(String(Error.localizedDescription))
-        }
-    }*/
-    
-    /*func createCommunity(uId: String, name: String, description: String, handler: @escaping(_ isCreated: Bool) -> ()){
-        var members = [String]()
-        members.append(uId)
-        REF_GROUPS.childByAutoId().updateChildValues(["adminId" : uId , "name" : name, "description" : description, "participants" : members])
-        handler(true)
-    }
-    
-    func addCommunityParticipants(groupId: String, participants: [String], handler: @escaping(_ isCreated: Bool) -> ()){
-        REF_GROUPS.observeSingleEvent(of: .value) { (groupsDataShot) in
-            guard let _groupsDataShot = groupsDataShot.children.allObjects as? [DataSnapshot] else {return }
-            for community in _groupsDataShot{
-                let id = community.key
-                if id == groupId {
-                    let admin = community.childSnapshot(forPath: "adminId").value as! String
-                    let name = community.childSnapshot(forPath: "name").value as! String
-                    let description = community.childSnapshot(forPath: "description").value as! String
-                    let _participants = participants
                     
-                    self.REF_GROUPS.child(community.key).updateChildValues(["adminId" : admin, "name" : name, "description" : description, "participants" : _participants])
-                }
-            }
-            handler(true)
-            
-        }
-    }
-    
-    func getAllCommunities (handler: @escaping (_ Communities : [Community]) -> ()) {
-        var communities = [Community]()
-        REF_GROUPS.observeSingleEvent(of: .value) { (GroupsSnapShot) in
-            guard let groupsSnapShot = GroupsSnapShot.children.allObjects as? [DataSnapshot] else {return }
-            
-            for group in groupsSnapShot {
-                let admin = group.childSnapshot(forPath: "adminId").value as! String
-                let participants = group.childSnapshot(forPath: "participants").value as! [String]
-                if  Auth.auth().currentUser?.uid != nil {
-                    
-                    if  participants.contains( Auth.auth().currentUser!.uid) {
-                        let name = group.childSnapshot(forPath: "name").value as! String
-                        let description = group.childSnapshot(forPath: "description").value as! String
-                        let community = Community(id: group.key, adminId: admin, name: name, description: description, participantsIds: participants)
-                        communities.append(community)
+                    var  imageStringURL = ""
+                    if user.childSnapshot(forPath: "image").exists() {
+                        imageStringURL = user.childSnapshot(forPath: "image").value as! String
                     }
-                    handler(communities)
+                    
+                    var  phone = ""
+                    if user.childSnapshot(forPath: "mobile").exists() {
+                       phone = user.childSnapshot(forPath: "mobile").value as! String
+                    }
+                    let email = user.childSnapshot(forPath: "email").value as! String
+                    DataServices.CurrentUserData = User(firstName: firstName, lastName: lastName, uId: uId, email: email, imageStringURL: imageStringURL, phone: phone)
+                    handler(true)
                 }
             }
         }
-    }*/
+    }
+    
+    func getProducts(by key: String , value: String,completion: @escaping (_ products: [Product]) -> ()){
+        var products = [Product]()
+        _REF_PRODUCT.observeSingleEvent(of: .value) { (productsSnapShot) in
+            guard let productsSnapShot = productsSnapShot.children.allObjects as? [DataSnapshot] else {return}
+            
+            for product in productsSnapShot {
+                let categoryName = product.childSnapshot(forPath: key).value as! String
+                if categoryName == value {
+                    let productID = product.key
+                    let title = product.childSnapshot(forPath: "productTitle").value as! String
+                    let supTitle = product.childSnapshot(forPath: "productDescription").value as! String
+                    let price = product.childSnapshot(forPath: "productPrice").value as! String
+                    let userId = product.childSnapshot(forPath: "userId").value as! String
+                    let userName = product.childSnapshot(forPath: "userName").value as! String
+                    let categoryName = product.childSnapshot(forPath: "categoryName").value as! String
+                    let image1 = product.childSnapshot(forPath: "productImageOne").value as! String
+                    let image2 = product.childSnapshot(forPath: "productImageTow").value as! String
+                    let image3 = product.childSnapshot(forPath: "productImageThree").value as! String
+                    var video = ""
+                    if  product.childSnapshot(forPath: "video").exists()  {
+                        video = product.childSnapshot(forPath: "video").value as! String
+                    }
+                    var imagesURL = [String]()
+                    var images = [UIImage]()
+                    
+                    imagesURL.append(image1)
+                    imagesURL.append(image2)
+                    imagesURL.append(image3)
+                    
+                    for url in imagesURL {
+                        let _picURL = URL(string: url)
+                        let _imageData:NSData = NSData(contentsOf: _picURL!)!
+                        let image = UIImage(data: _imageData as Data)
+                        images.append(image ?? #imageLiteral(resourceName: "Background"))
+                    }
+                    let product = Product(categoryName: categoryName, supTitle: supTitle, price: price, title: title, userId: userId, images: images, video: video, userName: userName, productID: productID)
+                    products.append(product)
+                    
+                }
+                completion(products)
+            }
+          
+        }
+    }
+    func uploudPhotosToStoragen(images: [UIImage],completion: @escaping (_ images:[String],_ error:String?) -> ()){
+        var imagesURL = [String]()
+        let storage =  Storage.storage().reference()
+        
+        for image in images {
+            if let imageData = image.pngData() {
+                storage.child("Photo/\(image.description).png").putData(imageData, metadata: nil) {_ , error in
+                    guard error == nil else {
+                        completion(imagesURL, error!.localizedDescription)
+                        return
+                    }
+                    storage.child("Photo/\(image.description).png").downloadURL { (url, error) in
+                    guard let url = url , error == nil else {
+                        completion(imagesURL, error!.localizedDescription)
+                        return
+                    }
+                    
+                    let urlString = url.absoluteString
+                    imagesURL.append(urlString)
+                    completion(imagesURL,"")
+                }
+             }
+            
+          }
+       }
+    }
+    func addProductTo(product: Product, completion: @escaping (_ success: Bool,_ error: String?) -> ()){
+        uploudPhotosToStoragen(images: product.images) { [weak self] (images, error) in
+            if error == "" && images.count == 3{
+                self!._REF_PRODUCT.childByAutoId().updateChildValues([ "categoryName" : product.categoryName,
+                                                                      "latitude" : "",
+                                                                      "longitude" : "",
+                                                                      "productDescription" : product.supTitle,
+                                                                      "productImageOne" : images[0],
+                                                                      "productImageThree" :images[1],
+                                                                      "productImageTow" :images[2],
+                                                                      "productPrice" : product.price,
+                                                                      "productTitle" : product.title,
+                                                                      "userId" : product.userId,
+                                                                      "userName" : product.userName,
+                                                                      "video" : product.video]
+                                                                     )
+             completion(true,"")
+            }else {
+                completion(false, error)
+            }
+        }
+    }
+    
+    func deleteProduct(Id: String){
+        _REF_PRODUCT.child(Id).removeValue()
+    }
     
 }
 

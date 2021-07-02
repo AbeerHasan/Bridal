@@ -14,8 +14,9 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
-    
     @IBOutlet weak var confirPasswordTextField: SkyFloatingLabelTextField!
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     
     var textFields = [SkyFloatingLabelTextField]()
     
@@ -34,6 +35,7 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func loginButtonClicked(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     @IBAction func registerButtonClicked(_ sender: Any) {
         var allIsValied = true
@@ -62,15 +64,17 @@ class SignUpViewController: UIViewController {
         }
         
         if allIsValied {
-            AuthService.instance.registerUser(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!) { (success, registerError) in
+            loadingIndicator.startAnimating()
+            AuthService.instance.registerUser(firstName: firstNameTextField.text!, lastName: lastNameTextField.text!, email: emailTextField.text!, password: passwordTextField.text!, pic: "", userID: "") {[weak self] (success, registerError) in
                    if success {
-                    
+                    self!.loadingIndicator.stopAnimating()
                     let mainStoryboard = UIStoryboard(name: "HomeTabViewController", bundle: nil)
                     guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "HomeTabViewController") as? HomeTabViewController else {
                         return
                     }
-                    self.navigationController?.pushViewController(signUpVC, animated: true)
+                    self!.navigationController?.pushViewController(signUpVC, animated: true)
                    }else {
+                    self!.loadingIndicator.stopAnimating()
                        print(String(registerError!.localizedDescription))
                    }
                }

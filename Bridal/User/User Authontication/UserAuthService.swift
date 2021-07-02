@@ -43,7 +43,7 @@ class AuthService {
     }
     
     
-    func registerUser(firstName: String, lastName: String, email: String, password: String, completion: @escaping (_ status: Bool , _ error: Error?) -> () ){
+    func registerUser(firstName: String, lastName: String, email: String, password: String, pic:String?, userID: String?, completion: @escaping (_ status: Bool , _ error: Error?) -> () ){
         
         let lowerCassEmail = email.lowercased()
         
@@ -52,12 +52,15 @@ class AuthService {
                 completion(false,error)
                 return
             }
-        
-            let userData: [String: Any] = [
+           
+           let userData: [String: Any] = [
                 "firstName" : firstName,
                 "lastName" : lastName,
                 "email" : user.user.email!,
-                "userId": user.user.uid
+                "mobile": " ",
+                "userId": user.user.uid,
+                "image": pic,
+                "userPremium": false
             ]
             DataServices.instance.createDBUser(uid: user.user.uid, userData: userData)
             completion(true,nil)
