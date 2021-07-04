@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductsTableViewCell: UITableViewCell {
     
@@ -21,7 +22,12 @@ class ProductsTableViewCell: UITableViewCell {
    
     
     func configurCell(product: Product){
-        productImageView.image = product.images[0]
+        if product.images != nil {
+            let url = URL(string: product.imagesStringURL[0])
+            productImageView.kf.setImage(with: url)
+        }else {
+            productImageView.image = product.images[0]
+        }
         titleLabel.text = product.title
         priceLabel.text = product.price
         supTitleLabel.text = product.supTitle

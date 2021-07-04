@@ -15,26 +15,43 @@ class ProductsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productsTableView.delegate = self
-        productsTableView.dataSource = self
+        loadingIndicator.startAnimating()
         if DataServices.selectedCategory!.products == nil {
-            loadingIndicator.startAnimating()
+            
             DataServices.instance.getProducts(by: "categoryName", value: DataServices.selectedCategory!.title) {[weak self] (products) in
-                if products.count > 0 {
-                    DataServices.selectedCategory!.products = products
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    
+                        DataServices.selectedCategory!.products = products
                         self!.productsTableView.reloadData()
                     }
-                }
-                self!.loadingIndicator.stopAnimating()
             }
         }else {
             
-            print("No category")
+            print("my products")
         }
+        
+        productsTableView.delegate = self
+        productsTableView.dataSource = self
+        
+    }
+    
+    var timer = Timer()
+    var counter = 0
+    var flage = true
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.main.async {
+            self.timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(self.stopAnimating), userInfo: nil, repeats: false )
+        }
+    }
+    
+    @objc func stopAnimating(){
         self.loadingIndicator.stopAnimating()
     }
-
+    
+    
     @IBAction func addProductButtonClicked(_ sender: Any) {
         let mainStoryboard = UIStoryboard(name: "AddProductViewController", bundle: nil)
         guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "AddProductViewController") as? AddProductViewController  else {
@@ -53,6 +70,7 @@ class ProductsViewController: UIViewController {
 extension ProductsViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if DataServices.selectedCategory!.products != nil {
+            self.loadingIndicator.stopAnimating()
             return DataServices.selectedCategory!.products!.count
         }else {
             return 0
@@ -80,6 +98,6 @@ extension ProductsViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.productsTableView.frame.height / 4.5
+        return self.productsTableView.frame.height / 5
     }
 }

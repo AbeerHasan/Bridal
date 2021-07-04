@@ -17,4 +17,6 @@ struct Product {
     var video: String
     var userName: String
     let productID: String
-}
+    var imagesStringURL : [String]
+    
+  }

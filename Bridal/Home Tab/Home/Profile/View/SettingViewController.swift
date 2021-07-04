@@ -61,6 +61,10 @@ class SettingViewController: UIViewController {
         displayUserInfo()
       
     }
+    
+    @IBAction func backBottunClicked(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
     @IBAction func editProfileButtonClicked(_ sender: Any){
         let mainStoryboard = UIStoryboard(name: "EditProfileViewController", bundle: nil)
         guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "EditProfileViewController") as? EditProfileViewController else {
@@ -73,16 +77,15 @@ class SettingViewController: UIViewController {
         let logoutPopup = UIAlertController(title: "Logout?", message: "Are you sure you want to logout?", preferredStyle: .actionSheet)
              //First action
              let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { (buttonTapped) in
-                 do {
-                     try Auth.auth().signOut()
+                 
+                     try! Auth.auth().signOut()
+                DataServices.CurrentUserData = User(firstName: " ", lastName: " ", uId: " ", email: " ", imageStringURL: "", phone: "")
                     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "LogInViewController") as? LogInViewController else {
                         return
                     }
                     self.navigationController?.pushViewController(signUpVC, animated: true)
-                 } catch {
-                     print(error)
-                 }
+                 
              }
              logoutPopup.addAction(logoutAction)
              //second acction

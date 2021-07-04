@@ -63,7 +63,7 @@ class ProductDetailsViewController: UIViewController {
           }
       }
     @objc func changeImage(){
-        if counter == DataServices.selectedProduct!.images.count {
+        if counter == DataServices.selectedProduct!.imagesStringURL.count {
                flage = false
                counter -= 1
                
@@ -87,13 +87,12 @@ class ProductDetailsViewController: UIViewController {
 
 extension ProductDetailsViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataServices.selectedProduct!.images.count
+        return DataServices.selectedProduct!.imagesStringURL.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = productImagesCollectionView.dequeueReusableCell(withReuseIdentifier: "ProductImageCell", for: indexPath) as! ProductImagesCollectionViewCell
-        let photo = DataServices.selectedProduct!.images[indexPath.row]
-        cell.setImage(image:photo)
+        cell.setImage(index: indexPath.row)
         cell.productImageView.frame = CGRect(x: 0, y: 0, width: productImagesCollectionView.frame.width, height: productImagesCollectionView.frame.height)
         return cell
     }

@@ -20,5 +20,5 @@
 "lastName" = "الإسم الآخير";
 "confirm" = "أعد كلمة المرور";
 "registerButton" = "أنشئ حساب";
-"haveAccount" = "هل تمتلك حسابا؟"
-"loginLabel" = "تسجيل الدخول"
+"haveAccount" = "هل تمتلك حسابا؟";
+"loginLabel" = "تسجيل الدخول";

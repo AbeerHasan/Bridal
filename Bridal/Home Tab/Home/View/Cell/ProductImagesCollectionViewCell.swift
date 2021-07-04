@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductImagesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var productImageView: UIImageView!
     
-    func setImage(image: UIImage){
-        productImageView.image = image
+    func setImage(index: Int){
+        let url = URL(string: DataServices.selectedProduct!.imagesStringURL[index])
+        productImageView.kf.setImage(with: url)
     }
 }

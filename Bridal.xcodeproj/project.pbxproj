@@ -68,6 +68,7 @@
 		1C1AB0042687DE86000CF4E3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1C1AB0072687DED7000CF4E3 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		1C1AB00A2687DF67000CF4E3 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		1C4AE66B268FD048002BB81F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		1C6116282686F165005A8E47 /* UserAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthService.swift; sourceTree = "<group>"; };
 		1C61162B2686F1C5005A8E47 /* FieldValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldValidation.swift; sourceTree = "<group>"; };
 		1C61162E2686F270005A8E47 /* DataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
@@ -651,6 +652,7 @@
 			children = (
 				1CA89C7B2685ED53007E5AE1 /* Base */,
 				1CFAFBFA268E58CC00C51158 /* ar */,
+				1C4AE66B268FD048002BB81F /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

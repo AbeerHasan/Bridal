@@ -77,41 +77,74 @@ class AddProductViewController: UIViewController {
     
     @IBAction func addLocation(_ sender: Any) {
     }
-    
-    @IBAction func saveButtonClicked(_ sender: Any) {
+    func showErrorAlert(message: String){
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let actionArabic = UIAlertAction(title: "OK", style: .default) { action in
+            alert.dismiss(animated: true, completion: nil)
+            
+        }
+        alert.addAction(actionArabic)
         
+        present(alert, animated: true)
+    }
+    @IBAction func saveButtonClicked(_ sender: Any) {
+        var isFull = true
+        
+        if selectCategoryMenu.text == "Select Category" || selectCategoryMenu.text == "" || selectCategoryMenu.text == " "  {
+            showErrorAlert(message: "Please select Category")
+            isFull = false
+        }else if  productTitleTextField.text == "" || productTitleTextField.text == " " || priceTextField.text == "" || priceTextField.text == " " || descriptionTextField.text == "" || descriptionTextField.text == " " {
+            showErrorAlert(message: "Please fill the missing fields")
+            isFull = false
+        }else if firstImageButton.image(for: .normal) == nil || secondImageButton.image(for: .normal) == nil || thirdImageButton.image(for: .normal) == nil {
+            showErrorAlert(message: "Please at three Photos for your product")
+            isFull = false
+        }
+        
+        if isFull {
+        loadingIndicator.startAnimating()
+        if uploadVideoButton.backgroundImage(for: .normal) == UIImage(systemName: "checkmark.rectangle") {
         let uploadMetadata = StorageMetadata()
         uploadMetadata.contentType = "video/quicktime"
         let uniqueID = UUID().uuidString
         let ref = "Video/ProductVideo" + uniqueID
-        Storage.storage().reference().child(ref).putData(videoURLData, metadata: uploadMetadata) {/*[weak self] */(metaData, error) in
+        Storage.storage().reference().child(ref).putData(videoURLData, metadata: uploadMetadata) {[weak self] (metaData, error) in
             if error != nil {
                 print(error as Any)
                 return
             }
-           
             Storage.storage().reference().child(ref).downloadURL(completion: {[weak self] url, error in
-                let `self` = self!
-                if let url = url?.absoluteString {
-                    DataServices.instance.addProductTo(product: Product(categoryName: self.selectCategoryMenu.text!, supTitle: self.descriptionTextField.text! , price: self.priceTextField.text!, title: self.productTitleTextField.text!, userId: Auth.auth().currentUser!.uid , images: [self.firstImageButton.image(for: .normal)!,self.secondImageButton.image(for: .normal)!,self.thirdImageButton.image(for: .normal)!], video: url, userName: DataServices.CurrentUserData.firstName + " " + DataServices.CurrentUserData.lastName, productID: " ")) { [weak self] (success, error) in
-                        if success {
-                           print("_______ Product Add")
-                            let mainStoryboard = UIStoryboard(name: "HomeTabViewController", bundle: nil)
-                            guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "HomeTabViewController") as? HomeTabViewController else {
-                                return
-                            }
-                            self?.navigationController?.pushViewController(signUpVC, animated: true)
-                        }else {
-                            print(error ?? "Error")
-                        }
+                    let `self` = self!
+                    if let url = url?.absoluteString {
+                        self.uploadProduct(url: url)
+                        self.loadingIndicator.stopAnimating()
+                    }else {
+                        print(error as Any)
+                        self.loadingIndicator.stopAnimating()
                     }
-                    
-                }else {
-                    print(error as Any)
-                }
-            })
+                })
         }
-      
+        }else {
+            uploadProduct(url: "")
+            
+        }
+        }
+    }
+    
+    func uploadProduct(url: String?){
+        DataServices.instance.addProductTo(product: Product(categoryName: self.selectCategoryMenu.text!, supTitle: self.descriptionTextField.text! , price: self.priceTextField.text!, title: self.productTitleTextField.text!, userId: Auth.auth().currentUser!.uid , images: [self.firstImageButton.image(for: .normal)!,self.secondImageButton.image(for: .normal)!,self.thirdImageButton.image(for: .normal)!], video: url ?? "", userName: DataServices.CurrentUserData.firstName + " " + DataServices.CurrentUserData.lastName, productID: " ", imagesStringURL: [String]())) { [weak self] (success, error) in
+            if success {
+                self!.loadingIndicator.stopAnimating()
+                let mainStoryboard = UIStoryboard(name: "HomeTabViewController", bundle: nil)
+                guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "HomeTabViewController") as? HomeTabViewController else {
+                    return
+                }
+                self?.navigationController?.pushViewController(signUpVC, animated: true)
+            }else {
+                print(error ?? "Error")
+                self!.loadingIndicator.stopAnimating()
+            }
+        }
     }
     
 }

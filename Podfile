@@ -20,4 +20,6 @@ target 'Bridal' do
     pod 'iOSDropDown'
   
     pod 'MOLH'
+
+    pod 'Kingfisher'
 end

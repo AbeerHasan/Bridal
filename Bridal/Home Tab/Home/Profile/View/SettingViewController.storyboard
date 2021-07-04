@@ -34,6 +34,21 @@
                                     <constraint firstItem="L4L-V0-uk9" firstAttribute="centerX" secondItem="3Oo-3V-fzb" secondAttribute="centerX" id="wgD-Gc-uCA"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMQ-K8-nB8">
+                                <rect key="frame" x="10" y="54" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="6ec-4J-SWC"/>
+                                    <constraint firstAttribute="width" secondItem="HMQ-K8-nB8" secondAttribute="height" id="oC7-AB-3Ig"/>
+                                </constraints>
+                                <color key="tintColor" red="0.82765142700000005" green="0.59227155129999998" blue="0.01728585102" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="arrow.backward" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="black"/>
+                                </state>
+                                <connections>
+                                    <action selector="backBottunClicked:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="c4m-XI-reW"/>
+                                </connections>
+                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AXk-Zi-K8l">
                                 <rect key="frame" x="155.5" y="192.5" width="103.5" height="105.5"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -152,8 +167,11 @@
                             <constraint firstItem="mAU-NG-zyD" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.8" id="5vV-Yz-Cyl"/>
                             <constraint firstItem="UjR-v9-cA8" firstAttribute="width" secondItem="e70-gs-gkV" secondAttribute="width" multiplier="1.4" id="7UY-cD-bdz"/>
                             <constraint firstItem="mAU-NG-zyD" firstAttribute="top" secondItem="AXk-Zi-K8l" secondAttribute="bottom" constant="8" symbolic="YES" id="9fX-7w-NhG"/>
+                            <constraint firstItem="HMQ-K8-nB8" firstAttribute="width" secondItem="HMQ-K8-nB8" secondAttribute="height" id="AES-Y8-7Bc"/>
                             <constraint firstItem="UjR-v9-cA8" firstAttribute="top" secondItem="e70-gs-gkV" secondAttribute="bottom" constant="2" id="CmG-jg-0Bc"/>
                             <constraint firstItem="AXk-Zi-K8l" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.25" id="DCT-eE-Ygj"/>
+                            <constraint firstItem="HMQ-K8-nB8" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="EQX-Xo-S8z"/>
+                            <constraint firstItem="HMQ-K8-nB8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="Eps-GO-o0p"/>
                             <constraint firstItem="3Oo-3V-fzb" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Ivr-jM-S90"/>
                             <constraint firstItem="mAU-NG-zyD" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Mrb-SB-nxU"/>
                             <constraint firstItem="e70-gs-gkV" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.144928" id="TX4-Fi-VVu"/>
@@ -181,6 +199,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.backward" catalog="system" width="128" height="98"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

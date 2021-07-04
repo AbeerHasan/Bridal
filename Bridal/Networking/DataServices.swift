@@ -85,23 +85,19 @@ class DataServices {
                         video = product.childSnapshot(forPath: "video").value as! String
                     }
                     var imagesURL = [String]()
-                    var images = [UIImage]()
+                    let images = [UIImage]()
                     
                     imagesURL.append(image1)
                     imagesURL.append(image2)
                     imagesURL.append(image3)
+                   
                     
-                    for url in imagesURL {
-                        let _picURL = URL(string: url)
-                        let _imageData:NSData = NSData(contentsOf: _picURL!)!
-                        let image = UIImage(data: _imageData as Data)
-                        images.append(image ?? #imageLiteral(resourceName: "Background"))
-                    }
-                    let product = Product(categoryName: categoryName, supTitle: supTitle, price: price, title: title, userId: userId, images: images, video: video, userName: userName, productID: productID)
+                    
+                    var product = Product(categoryName: categoryName, supTitle: supTitle, price: price, title: title, userId: userId, images: images, video: video, userName: userName, productID: productID, imagesStringURL: imagesURL)
                     products.append(product)
-                    
+                    completion(products)
                 }
-                completion(products)
+                
             }
           
         }

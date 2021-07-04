@@ -21,8 +21,8 @@
 "firstName" = " First Name";
 "lastName" = " Last Name";
 "confirm" = " Confirm Password";
-"haveAccount" = "Already have account?"
-"loginLabel" = "Login"
+"haveAccount" = "Already have account?";
+"loginLabel" = "Login";
 "registerButton" = "REGISTER";
 
 "" = "";

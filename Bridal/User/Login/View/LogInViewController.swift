@@ -34,8 +34,12 @@ class LogInViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //UserDefaults.standard.setValue("en", forKey: languageKey)
-        
+        let imageView = UIButton()
+        let image = UIImage(systemName: "eye.fill")
+        imageView.setImage(image, for: .normal)
+        imageView.addTarget(self, action: #selector(show_hide_Text), for: .touchUpInside)
+        passwordTextField.rightView = imageView
+        passwordTextField.rightViewMode = .always
         if Auth.auth().currentUser != nil {
             let mainStoryboard = UIStoryboard(name: "HomeTabViewController", bundle: nil)
             guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "HomeTabViewController") as? HomeTabViewController else {
@@ -46,10 +50,19 @@ class LogInViewController: UIViewController{
         textFields.append(emailTextField)
         textFields.append(passwordTextField)
     }
-    
+    @objc func show_hide_Text(){
+        let imageView = UIButton()
+        let image = UIImage(systemName: "eye.slash.fill")
+        imageView.setImage(image, for: .normal)
+        imageView.addTarget(self, action: #selector(show_hide_Text), for: .touchUpInside)
+        passwordTextField.rightView = imageView
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = !passwordTextField.isSecureTextEntry
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavBar()
+        
         if MOLHLanguage.currentAppleLanguage() == "ar" {
             arabicLanguageButton.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
             arabicLanguageButton.shadowOpacity = 1
@@ -88,6 +101,11 @@ class LogInViewController: UIViewController{
                 text.errorMessage = "Required Field!"
                 allIsValied = false
             }
+        }
+        let error = Validation.isValideInput(textField: emailTextField)
+        if  error != ""{
+            emailTextField.errorMessage = error
+            allIsValied = false
         }
         
         if allIsValied {
@@ -135,9 +153,7 @@ class LogInViewController: UIViewController{
             in
             if((AccessToken.current) != nil){
                 let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-                
-                print((res?.token!.tokenString)! + " res Token" )
-                        GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void
+                    GraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void
                             in
                             if (error == nil){
                             Auth.auth().signIn(with: credential) {[weak self] authResult, error in
@@ -152,6 +168,7 @@ class LogInViewController: UIViewController{
                                     "image": user!.photoURL?.absoluteString as Any,
                                     "userPremium": "0"
                                     ]
+                                    
                                     DataServices.instance.createDBUser(uid: user!.uid, userData: userData)
                                      let mainStoryboard = UIStoryboard(name: "HomeTabViewController", bundle: nil)
                                      guard let signUpVC = mainStoryboard.instantiateViewController(identifier: "HomeTabViewController") as? HomeTabViewController else {

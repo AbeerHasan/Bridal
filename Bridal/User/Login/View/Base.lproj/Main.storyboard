@@ -175,13 +175,12 @@
                                             <action selector="forgitPasswordButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ghd-aK-Zha"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9F-ul-jCv">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9F-ul-jCv">
                                         <rect key="frame" x="124" y="240.33333333333334" width="180" height="42.333333333333343"/>
                                         <color key="backgroundColor" red="0.82765142700000005" green="0.59227155129999998" blue="0.01728585102" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="l9F-ul-jCv" secondAttribute="height" multiplier="17:4" id="EMn-me-4sV"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="LOGIN">
                                             <color key="titleColor" red="0.13725490200000001" green="0.1333333333" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>

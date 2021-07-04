@@ -65,12 +65,15 @@ class EditProfileViewController: UIViewController {
            DataServices.instance.uploudPhotosToStoragen(images: [userImageView.image!]) {[weak self] imageURL, error in
                 if error == "" {
                     self!.imageURL = imageURL[0]
+                    self!.updatUserInfo(imageStringURL: self!.imageURL)
                 }else {
                     print(error as Any)
                 }
            }
+        }else {
+            self.updatUserInfo(imageStringURL: self.imageURL)
         }
-        updatUserInfo(imageStringURL: imageURL)
+        
     }
     
     func updatUserInfo(imageStringURL: String){
